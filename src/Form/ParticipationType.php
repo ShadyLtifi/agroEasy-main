@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Participation;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
+class ParticipationType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('id_utilisateur')
+            ->add('nom_utilisateur', TextType::class, array(
+                'attr' =>array(
+                    'placeholder' => 'nom utilisateur')))
+            ->add('telphone', NumberType::class, array(
+                'attr' =>array(
+                    'placeholder' => '********'),
+                'invalid_message' => 'Le numéro de téléphone doit être un nombre positif de 8 chiffres'))
+            ->add('evenement')
+            ->add('heure')
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Participation::class,
+        ]);
+    }
+}
